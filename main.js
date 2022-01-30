@@ -10,6 +10,10 @@ x('https://www.gift-gift.jp/nui/toho.html', '.content-inner li', [
         images: x('.gallery-top ul.swiper-wrapper li', [
           'img@src'
         ]),
+        tableValues: x('table.m-table-detail tr', [{
+          header: 'th',
+          value: 'td',
+        }]),
         desc: '.m-txt-detail'
       }))
   }

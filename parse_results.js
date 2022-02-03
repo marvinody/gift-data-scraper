@@ -147,7 +147,7 @@ const TABLE_PARSERS = {
     },
     '仕様': (key, value) => {
         let translation;
-        switch(value) {
+        switch (value) {
             case 'ぬいぐるみストラップ':
                 translation = 'Plush Strap'
                 break;
@@ -168,14 +168,14 @@ const TABLE_PARSERS = {
             value,
         }
     },
-    'ぬいぐるみ用\nキャラクター\nデザイン': (key, value) => {       
+    'ぬいぐるみ用\nキャラクター\nデザイン': (key, value) => {
         return {
             key: "characterDesigner",
             value,
         }
     },
     '企画協力': (key, value) => {
-        if(value === 'ピンクカンパニー') {
+        if (value === 'ピンクカンパニー') {
             return {
                 key: 'planningCooperation',
                 value: 'Pink Company'
@@ -189,19 +189,25 @@ const TABLE_PARSERS = {
 }
 
 const values = results.map(r => {
-    return r.info.tableValues.reduce((acc, cur) => {
-        const formatted = TABLE_PARSERS[cur.header](cur.header, cur.value)
-        return {
-            ...acc,
-            [formatted.key]: formatted.value,
+    return {
+        ...r,
+        info: {
+            ...r.info,
+            ...r.info.tableValues.reduce((acc, cur) => {
+                const formatted = TABLE_PARSERS[cur.header](cur.header, cur.value)
+                return {
+                    ...acc,
+                    [formatted.key]: formatted.value,
+                }
+            }, {})
         }
-    }, {})
+    }
 })
 
 
 
 
-console.log(values)
+console.log(JSON.stringify(values, null, 2))
 
 
 // values.forEach(v => {
